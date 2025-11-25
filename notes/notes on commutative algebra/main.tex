@@ -1,7 +1,7 @@
 \documentclass[12pt]{article}
 
 %DEFINIZIONE DEI PACCHETTI GENERICI
-\usepackage[a4paper,top=3.5cm,bottom=2.5cm,left=3cm,right=3.5cm]{geometry}
+\usepackage[a4paper,top=3.5cm,bottom=2.5cm,left=3cm,right=3cm]{geometry}
 \usepackage{times}
 \usepackage{titlesec}
 %\usepackage{lipsum}
@@ -12,40 +12,31 @@
 \usepackage{amsfonts}
 \usepackage{amssymb}
 \usepackage{amsthm}
+\usepackage{stmaryrd}
 
 %STILE DELLE PROPOSIZIONI
 \theoremstyle{plain}
 
 % Intestazioni in ingelse
-%\newtheorem{thm}{Theorem}[section]
-%\newtheorem{lem}[thm]{Lemma}
-%\newtheorem{prop}[thm]{Proposition}
-%\newtheorem{cor}[thm]{Corollary}
-%\newtheorem{defn}[thm]{Definition}
-%\newtheorem{rmk}[thm]{Remark}
-%\newtheorem{ex}[thm]{Example}
-%\newtheorem{prob}[thm]{Problem}
-%\newtheorem*{notat*}{Notation}
-
-% Intestazioni in italiano
-\newtheorem{thm}{Teorema}[section]
+\newtheorem{thm}{Theorem}[section]
 \newtheorem{lem}[thm]{Lemma}
-\newtheorem{prop}[thm]{Proposizione}
-\newtheorem{cor}[thm]{Corollario}
-\newtheorem{defn}[thm]{Definizione}
-\newtheorem{rmk}[thm]{Osservazione}
-\newtheorem{ex}[thm]{Esempio}
-\newtheorem{prob}[thm]{Problema}
-\newtheorem*{notat*}{Notazione}
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem{cor}[thm]{Corollary}
+\newtheorem{defn}[thm]{Definition}
+\newtheorem{rmk}[thm]{Remark}
+\newtheorem{ex}[thm]{Example}
+\newtheorem{prob}[thm]{Problem}
+\newtheorem*{quest*}{Question}
+\newtheorem*{notat*}{Notation}
 
 %STILE DELLE SEZIONI
 \titleformat{\section}
 {\normalfont \scshape \centering}{\thesection.}{0,5em}{}
-\titlespacing*{\section}{0pt}{50pt}{0.5cm}
+%\titlespacing*{\section}{0pt}{50pt}{0.5cm}
 
 \titleformat{\subsection}
-{\normalfont \bfseries }{ \normalfont \thesubsection.}{0,5em}{}
-\titlespacing*{\subsection}{0pt}{50pt}{0.5cm}
+{\normalfont \bfseries }{\normalfont \thesubsection.}{0,5em}{}
+%\titlespacing*{\subsection}{0pt}{50pt}{0.5cm}
 
 \titlecontents{section}[0cm]{}
 {\normalfont \thecontentslabel. \enspace}
@@ -65,20 +56,30 @@ style=alphabetic,
 \addbibresource{bibliography.bib}
 \AtNextBibliography{\small}
 
+% imposto lo stile dell'abstract
+\renewcommand{\abstractname}{\normalfont \scshape \centering Abstract}
 
 %INIZIO DEL DOCUMENTO
 \begin{document}
-	
-	\fontsize{11pt}{0pt}
+
+    % impostazione del titolo
 	\begin{center}
-		\textbf{NOTES ON COMMUTATIVE ALGEBRA}
+	    \fontsize{12pt}{0pt} % dimensioni del titolo
+        \textbf{NOTES ON COMMUTATIVE ALGEBRA} % titolo
 	\end{center}
 
-    \fontsize{12pt}{0pt}
-	\tableofcontents
+    \begin{abstract}
+        These are notes I took during the commutative algebra course at university of Bologna.
+    \end{abstract}
+
+    %impostazione dell'indice
+    {
+    \fontsize{12pt}{0pt} % dimensioni delle voci
+    \tableofcontents % print della tavola dei contenuti
+    }
 
     %INIZIA A SCRIVERE QUI
-
+    \fontsize{12pt}{0pt}
     \section{Ring and Ideals}
 
     \begin{defn}
@@ -120,14 +121,306 @@ style=alphabetic,
     \end{notat*}
 
     \begin{defn}
-        Let $A$ be a ring, then,
+        Given a ring $A$, we define the subset $I \subseteq A$ to be an ideal of $A$ if
         \begin{enumerate}
-            \item[(1)] $A$ is an integral domain if, for all $a, b \in A \setminus \{0\}$, $a  b \neq 0$;
-            \item[(2)] $A$ is a field if, for all $a \in A$ there exits an element $b \in A$, such that $a b =1$;
+            \item[(1)] $\forall i, j \in I, \, i + j \in I$;
+            \item[(2)] $\forall i \in I, \forall a \in A, \, i a \in I$.
+        \end{enumerate}
+        We define an ideal $I$ to be proper if $I \neq A$.
+    \end{defn}
+
+    \begin{lem}
+        $I \subset A$ is proper ideal $\iff$ $1 \not \in I$.
+    \end{lem}
+
+    \begin{proof}
+        If $1 \in I$, then for all $a \in A$ we have $a \cdot 1 \in I$, so $A \subset I$, therefore $I = A$.
+        If $I = A$, since $1 \in A$ then $1 \in I$.
+    \end{proof}
+    
+    We introduce now homomorphisms between rings.
+    \begin{defn}
+        Let $A, B$ two rings. A map $f:A \longrightarrow B$ is an homomorphism of rings if
+        \begin{enumerate}
+            \item[(1)] $f(a+b) = f(a) + f(b);$
+            \item[(2)] $f(ab) = f(a) f(b).$
+        \end{enumerate}
+    \end{defn}
+
+    From this definition follows that
+    \[ f(0_A) = f(a-a) = f(a) - f(a) = 0_B,\]
+    but does not follows that $f(1_A) = 1_B.$
+    So in addition to the conditions $(1)$ and $(2)$ we require also
+    \begin{enumerate}
+        \item[(3)] $f(1_A) = 1_B$.
+    \end{enumerate}
+
+    \begin{ex}
+        We can define a map \[f : \frac{\mathbb{Z}}{2\mathbb{Z}} \longrightarrow \frac{\mathbb{Z}}{6\mathbb{Z}}\] such that
+        \begin{enumerate}
+            \centering
+            \item[] $0 \mapsto 0$
+            \item[] $1 \mapsto 3$
+        \end{enumerate}
+    \end{ex}
+
+    \begin{defn}
+        Given $f:A \longrightarrow B$ we define the kernel of $f$ to be
+        \[ Ker(f) := \{ x \in A \mid f(x) = 0\}.\]
+    \end{defn}
+
+    \begin{lem}
+        Given $f : A \longrightarrow B$ an homomorphism of ring, then
+        \begin{enumerate}
+            \item[(1)] $Ker(f)$ is an ideal of $A$;
+            \item[(2)] $Im(f)$ is a subring of $B$.
+        \end{enumerate}
+    \end{lem}
+
+    \begin{proof}
+        \begin{enumerate}
+            \item[(1)] Consider $x, y \in Ker(f)$, then
+            \[ f(x + y) = f(x) + f(y) = 0 + 0 = 0.\]
+            Therefor $x + y \in Ker(f)$.
+            \item[(2)] Consider $x, y \in Im(f)$, then there exists $a, b \in A$ such that $f(a) = x$ and $f(b) = y$. Therefor
+            \[ x + y = f(a) + f(b) = f(a + b) \in Im(f).\]
+        \end{enumerate}
+    \end{proof}
+
+    \begin{defn}
+         We define $f$ to be injective if $Ker(f) = 0$.\\ We define $f$ to be surjective if $Im(f) = B$.
+    \end{defn}
+    
+    \begin{rmk}
+        \begin{enumerate}
+            \item[(1)] $Im(f)$ is not an ideal. Consider $i : \mathbb{Z} \longrightarrow \mathbb{Q}$ the inclusion. Then $Im(i) = \mathbb{Z}$ which does not absorb the product in $\mathbb{Q}$.
+            \item[(2)] Given $I \subseteq A$ ideal, then
+            \[ I \text{ is a subring } \iff 1 \in I \iff I = A.\]
+        \end{enumerate}    
+    \end{rmk}
+
+    \begin{defn}
+        Let $I \subseteq A$ an ideal. We define, for $x, y \in A$, the equivalent relation
+        \[ x \equiv y \mod{I} \iff y - x \in I .\]
+        The equivalent classes are denoted with $x + I$ for $x \in A$, and we define the quotient ring as 
+        \[ \frac{A}{I} := \{ x + I : x \in A \}, \]
+        where the sum and product are well defined as
+        \[ [x] + [y] = [x + y] \ \text{ and } \ [x] \cdot [y] = [xy].\]
+    \end{defn}
+
+    \begin{quest*}
+        Are there other possible notion of quotients of ring? No.
+    \end{quest*}
+
+    Suppose to start with an equivalent relation $\sim$ on $A$ such that the sum and the product are well defined in the quotient $A/\sim$.
+    Define the projection map $\pi : A \longrightarrow A/\sim$ as $\pi(x) = [x]$. Then $\pi$ is a surjective homomorphism of rings, in fact
+    \[ \pi(x+y) = [x+y] = [x] + [y]  = \pi(x) + \pi(y),\]
+    \[ \pi(x\cdot y) = [x \cdot y] = [x] \cdot [y] = \pi(x) \cdot \pi(y).\]
+    Therefore $Ker(\pi)$ is an ideal of $A$ and we have
+    \begin{align*}    
+    x \sim y &\iff [x] = [y] \iff \pi(x) = \pi(y) \iff \pi(x-y) = 0 \iff \\ 
+    &\iff x - y \in Ker(f) \iff x \equiv y \mod{Ker(f)} \iff x \in y + I.
+    \end{align*}
+
+    So we can reduce the notion of quotienting by an equivalence relation to the notion of quotienting by an ideal. These two type of quotients are the same.
+
+    \begin{rmk}
+        There is another way do define the quotient ring by defining it as a quotient of groups. In fact if $(A, +, \cdot)$ is a ring then $(A,+)$ is a group and if $I \subset A$ is an ideal, then $(I, +)$ is a normal subgroup:
+        \[ \forall a \in A, \, a \cdot I = I = I \cdot a.\]
+        Therefore is well defined the abelian group $(A/I, +)$ in which we can define the product as
+        \[ [a] \cdot [b] := [a \cdot b].\]
+        This product is well defined since
+        \[ [a+i] [b+j] = [ab + ib + aj + ij] = [ab], \]
+        and the identity element is $[1]$.
+        So $(A/I, +, \cdot)$ is the quotient ring.
+    \end{rmk}
+
+    \begin{quest*}
+        What are the ideal of $A/I$?
+    \end{quest*}
+    Consider a group $G$, and a normal subgroup $H \subset G$. Then we have the following correspondence
+    \[ \{\text{subgroups of G containing H}\} \longleftrightarrow \{ \text{subgroups of G/H} \}\]
+    \[ H \longmapsto \pi(H)\]
+    \[ \pi^{-1}(\bar{H}) \longmapsfrom \bar{H},\]
+    where $\pi : G \longrightarrow G/H$ is the quotient map.
+
+    If we consider a ring $A$ and an ideal $I$ we have the correspondence
+    \[ \{\text{additive subgroups of A containing I}\} \longleftrightarrow \{ \text{additive subgroups of A/I} \}.\]
+
+    But the maps $\pi$ and $\pi^{-1}$ preserves ideal and subrings, so we have the correspondence
+    \begin{equation} \tag{C1} \label{ideals_correspondece}
+    \{\text{ideals/subrings of A containing I}\} \longleftrightarrow \{ \text{ideals/subrings of A/I} \}
+    \end{equation}
+    \[ I \longmapsto \pi(I)\]
+    \[ \pi^{-1}(J) \longmapsfrom J.\]
+    
+    \begin{ex} The ideals of $\mathbb{Z}$ are the ideals $(d) = d\mathbb{Z}$.
+    Consider two ideals $(a)$ and $(b)$. Then 
+    \[ (a) \subseteq (b) \iff b \mid a. \]
+        \begin{enumerate}
+            \item[(1)] Consider $A = \mathbb{Z}$ and $I = (6)$.   Then\\
+            \begin{center}
+            $\begin{matrix}
+                \{ \text{ideals of $\mathbb{Z}$ containing (6)} \}&  & \{ \text{ideals of $\mathbb{Z}/(6)$}\} \\ \vspace{0.2cm} \\
+                \mathbb{Z} = (1) & \longmapsto & \mathbb{Z}/(6) \\ \vspace{0.2cm} \\
+                (2) & \longmapsto & ([2])\\ \vspace{0.2cm} \\
+                (3) & \longmapsto & ([3])\\ \vspace{0.2cm} \\
+                (6) & \longmapsto & ([0])            
+            \end{matrix}$
+            \end{center}
+
+            \item[(2)] Ideals of $\mathbb{Z}/(12)$. For the correspondence we need to find the ideals of $\mathbb{Z}$ containing $(12)$, thus the divisors of $12$:
+            \[ b \mid 12 \iff b \in \{ 1,2,3,4,6,12\}.\]
+            Therefore we have
+            \begin{center}
+            $\begin{matrix}
+                    \{ \text{ideals of $\mathbb{Z}$ containing (12)} \}&  & \{ \text{ideals of $\mathbb{Z}/(12)$}\} \\ \vspace{0.2cm} \\
+                     (1) = \mathbb{Z} & \longmapsto & \mathbb{Z}/(12) \\ \vspace{0.2cm} \\
+                     (2) & \longmapsto & ([2])\\ \vspace{0.2cm} \\
+                     (3) & \longmapsto & ([3])\\ \vspace{0.2cm} \\
+                     (4) & \longmapsto & ([4])\\ \vspace{0.2cm} \\
+                     (6) & \longmapsto & ([6])\\ \vspace{0.2cm} \\
+                     (12) & \longmapsto & ([12]) = ([0])
+            \end{matrix}$
+            \end{center}
+        \end{enumerate}
+    \end{ex}
+    
+    
+    \subsection{Fields and Domains}
+
+    \begin{defn}
+        Let $A$ be a ring, then
+        \begin{enumerate}
+            \item[(1)] $A$ is an integral domain if, for all $a, b \in A$, $a  b = 0 \implies a=0 \text{ or } b =0$;
+            \item[(2)] $A$ is a field if, for all $a \in A$ there exits an element $b \in A$, such that $a b =1$. We denote $b$ with $a^{-1}$;
             \item[(3)] defining $A ^ \times = \{ a \in A \mid a \text{ is invertible}\}$, then we define $(A^\times, \cdot)$ to be the commutative group of the ring $A$.
         \end{enumerate}
     \end{defn}
+
+    \begin{lem}
+        \[ A \text{ is a field} \implies A \text{ is a integer domain.}\]
+    \end{lem}
+
+    \begin{proof}
+        Consider $a,b \in A$, such that $ab = 0$ and $b \neq 0$. Then
+        \[ a = abb^{-1} = (ab)b^{-1} = 0b^{-1} = 0.\]
+    \end{proof}
+    
+    \begin{ex}
+        Consider the ring $(\mathbb{Z}, +, \cdot)$. Then the commutative group associated to $\mathbb{Z}$ is $(\{+1, -1\}, \cdot)$.
+    \end{ex}
+
+       
+    \begin{defn}
+        An ideal $I \subseteq A$ is called principal if it is generated by one element
+        \[ I = (a).\]
+        We define an integral domain $A$ to be a principal ideal domain (PID) if every ideal in $A$ is principal.
+    \end{defn}
         
+    \begin{ex}
+        \begin{enumerate}
+            \item[(1)] $\mathbb{Z}$ and $\mathbb{Z}[i]$ are both PID.
+            \item[(2)] Let $k$ be a field, then $k[x]$ is a PID.
+            \item[(3)] Let $k$ be a field, then define the ring of formal series as
+            \[ k[[x]] := \{ a_0 + a_1 x+ a_2x^2 + \dots \mid a_i \in k, \,  \forall i\}\]
+            with the same sum and product as the ones in the ring of polynomial.
+            Consider now the series 
+            \[ 1 - x + x^2 - x^3 + \dots = \sum_{i \ge 0} (-1)^i x^^i\]
+            and observe that $(1+x) (1 - x + x^2 - x^3 + \dots) = 1.$
+            Now we can prove that
+            \[ a(x) \in k[[x]] \text{ is invertible} \iff a_0 \neq 0.\]
+            In fact $a(x) = a_0 + a_1 x + a_2 x^2 + \dots = a_o ( 1 + a_0^{-1} a_1 x + a_0^{-1}x_2 x^2 + \dots)$, defining
+            \[ A(x) := a_0^{-1} a_1 x + a_0^{-1}x_2 x^2 + \dots, \]
+            we have that
+            \[ a(x) = a_0(1+A(x)),\]
+            so by what we have seen before, the inverse of $a(x)$ is
+            \[ a(x)^{-1} = a_0^{-1} (1-A(x) + A(x)^2-\dots)\]
+            So the inverse of $a(x)$ exists if and only if $a_0 \neq 0$.
+        \end{enumerate}
+    \end{ex}
+
+    \begin{defn}
+        Let $A$ be a ring and $I \subset A$ an ideal. We define $I$ to be
+        \begin{enumerate}
+            \item[(1)] prime if $xy \in I \implies x \in I \text{ or } y \in I$;
+            \item[(2)] maximal if $\forall J \subset A$ ideal, $ I \subset J \subseteq A \implies I = J$.
+        \end{enumerate}
+    \end{defn}
+
+    \begin{prop}
+        Let $I \subseteq A$ and ideal, then
+        \[ \text{$I$ is maximal} \implies  \text{I is prime}\]
+    \end{prop}
+
+    \begin{proof}
+        Let $I$ be a maximal ideal, consider $x\cdot y \in I$ and suppose that $x \not \in I$ and $y \not \in I$.
+        If $x \not \in I$, then $(x) \not \subseteq I$.
+        Therefore $I + (a) \supseteq I$ by maximality of $I$ we have that $I + (a) = A$, the same holds for $(b)$, therefore $I + (b) = A$.
+        $1 \in A$, so
+        \[ 1\cdot 1 = (i + ax) (j + bx) = ij + iby + jax + abxy,\]
+        and since $ab \in I$, we have $1 \in I$, therefore $I = A$.
+    \end{proof} 
+
+    \begin{lem}
+        Let $A$ be a ring, then
+        \begin{enumerate}
+            \item[(1)] 
+                \[ \text{ $A$ is an integral domain} \iff \text{ $(0)$ is a prime ideal } \]
+            \item[(2)]
+                \[ \text{ $A$ is a field} \iff \text{ $(0)$ is a maximal ideal } \]
+        \end{enumerate}
+    \end{lem}
+
+    \begin{proof}
+        \begin{enumerate}
+            \item[(1)]       
+                Let $x, y \in A$, if $(0)$ is a prime ideal, then
+                \[ xy = 0 \implies xy \in (0) \implies x \in (0) \text{ or } y \in (0) \implies x = 0 \text{ or } y = 0.\]
+                If $A$ is an integral domain, then 
+                \[ xy \in (0) \implies xy = 0 \implies x = 0 \text{ or } y = 0 \implies x \in (0) \text{ or } y \in (0).\]
+            \item[(2)] 
+        \end{enumerate}
+
+    \end{proof}
+    
+    \begin{lem}
+        Let $A$ be a ring, then 
+        \[ \text{$I \subset A$ is a prime ideal} \iff A/I \text{ is an integral domain}\]
+    \end{lem}
+
+    \begin{proof}
+        Consider $I \subseteq A$ an ideal. If $I$ is prime then
+        \[ 0 = [x][y] = [xy] \implies xy \in I\]
+        but $I$ is a prime ideal, so
+        \[ x \in I \text{ or } y \in I\]
+        therefore
+        \[ [x] = 0 \text{ or } [y] = 0.\]
+        Viceversa, if $A/I$ is an integral domain, then
+        \[ xy \in I \implies [xy] = [x][y] = 0 \implies [x] = 0 \text{ or } [y] = 0 \implies x \in I \text{ or } y \in I. \]
+    \end{proof}
+
+    \begin{lem}
+        Let $A$ be a ring. Then 
+        \[ \text{ $A$ is a field} \iff \text{ the only ideals of $A$ are $\{0\}$ and $A$ }\]
+    \end{lem}
+
+    \begin{proof}
+        Let $A$ be a ring. Then given $I \subseteq A$ an ideal, we have two possibilities:
+        \begin{enumerate}
+            \item[(1)] $I = 0$, and we are finished;
+            \item[(2)] $I \neq 0$, in that case we can choose $x \in I$ and observe that 
+            \[ 1 = x \cdot x^{-1} \in I \]
+            and therefore $I = A$.
+        \end{enumerate}
+
+        Viceversa, if the only ideals of $A$ are $0$ and $A$, we consider the ideal generated by $x \in A$, $(x)$. Since $(x) \neq 0$ by hypothesis $(x) = A$, but $1 \in A = (x)$.
+        Therefore there exists an element $y \in A$ such that $xy = 1$.
+    \end{proof}
+    
+    
+    
+    
     \section{Modules}
 
     \section{Nakayama Lemma}
