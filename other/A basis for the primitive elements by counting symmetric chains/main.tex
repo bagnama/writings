@@ -705,7 +705,244 @@ style=alphabetic,
     Considering the chains $\phi^2_1, \dots, \phi_{N_2}^2$ of $M(\gamma_2)$, we have that
     \[ L(\phi_{1}^2) = L(\gamma_2) + (m_E -1) = L(\gamma_1) - 2 + (m_E -1) = (m_1 -1) + (m_2 -2) - 2 + (m_E -1) = L(\phi_1^1) -2. \]
     Generalizing 
-    \[ L(\phi^2_{k}) = L(\phi^1_1) + 2(k-1).\]
+    \[ L(\phi^2_{k}) = L(\phi^2_1) - 2(k-1).\]
+
+
+    \section{Primitive Elements}
+
+    Given the $FY$ monomial basis, we can cover it with the fibers of the support function. Then we can decompose each fiber in symmetric chains. 
+    Now we can define the map $\lambda$ by describing its behavior on the chains of the symmetric chain decomposition of the fibers. Let $a$ be any $FY$-monomial with $k = \deg(a)$, then $a$ lies on a unique fiber $supp_+^{-1}(N^+)$ for some $\mathcal{G}$-nested set $N^+ =\{F_1, \dots ,F_l, E\}$, and on a unique symmetric chain $C_i$, of the symmetric chain decomposition of $supp_+^{-1}(N^+)$,
+    \[ C_i = \{ a_\rho \lessdot a_{\rho +1 } \lessdot \dots \lessdot a_{r-\rho-r} \lessdot a_{r-\rho}\},\]
+    where $\deg(a_j) = j$ with $j = \rho, \rho +1 , \dots, r- \rho -1, r - \rho$.
+
+    Then, since $a \in C_i$, then exits $k \in \{ \rho, \rho +1 , \dots, r- \rho -1, r - 
+    \rho \}$, such that $a = a_k$, so we define:
+    \[ \lambda (a) := a_{k+1},  \  k<\frac{r}{2}.\]
+
+    \begin{rmk}
+        The map $\lambda$ is an injection
+        \[ \lambda : FY^{k} \longrightarrow FY^{k+1},\]
+        and it is a deformation of the Lefschetz operator.
+    \end{rmk}
+
+    We give here an example.
+    \begin{ex} \label{ex:fiber}
+    
+        Let $\mathcal{L} = \mathcal{L}_{\mathcal{M}}$ be the lattice of flats of a simple matroid $\mathcal{M}$ having $rk(E) = 10 = r+1$ with $r=9$ and $\mathcal{G} = \mathcal{G_{\max}}$. Consider a $\mathcal{G}$-nested set $N^+ = \{F_1, F_2, E\}$ where $F_1 < F_2$ are flats with $rk(F_1) = 3$, $rk(F_2) = 7$. Linearly ordering $\{F_1, F_2 \}$ as $(F_1, F_2)$, then the divisibility poset on the fiber $supp_+^{-1}(\{F_1, F_2, E \})$ is depicted in Figure \ref{fig:suppfiber1}.
+        And a possible choice of symmetric chain decomposition looks as depicted in Figure \ref{fig:symmchainsupp}.
+        
+        \begin{figure}[h!]
+        \begin{center} \begin{tikzpicture}
+            \node (top) at (0,0) {$x_{F_1}^2x_{F_2}^3x_E^2$};
+                    
+            \node (n1) at (-2.4, -2)  {$x_{F_1}^2x_{F_2}^3x_E$};
+                    \node (n2) at (0, -2)  {$x_{F_1}x_{F_2}^3x_E^2$};
+                    \node (n3) at (2.4, -2)  {$x_{F_1}^2x_{F_2}^2x_E^2$};
+        
+                    \draw (top) -- (n1);
+                    \draw (top) -- (n2);
+                    \draw (top) -- (n3);
+                    
+                    \node (n5) at (-4.8, -4)  {$x_{F_1}^2x_{F_2}^3$};
+                    \node (n6) at (-2.4, -4)  {$x_{F_1}x_{F_2}^3x_E$};
+                    \node (n7) at (0, -4)  {$x_{F_1}^2x_{F_2}^2x_E$};
+                    \node (n8) at (2.4, -4)  {$x_{F_1}x_{F_2}^2x_E^2$};
+                    \node (n9) at (4.8, -4) {$x_{F_1}^2x_{F_2}x_E^2$};
+        
+                    \draw (n1) -- (n5);
+                    \draw (n1) -- (n6);
+                    \draw (n1) -- (n7);
+                    \draw (n2) -- (n6);
+                    \draw (n2) -- (n8);
+                    \draw (n3) -- (n7);
+                    \draw (n3) -- (n8);
+                    \draw (n3) -- (n9);
+                                
+                    \node (n10) at (-4.8, -6)  {$x_{F_1}x_{F_2}^3$};
+                    \node (n11) at (-2.4, -6)  {$x_{F_1}^2x_{F_2}^2$};
+                    \node (n12) at (0, -6)  {$x_{F_1}x_{F_2}^2x_E$};
+                    \node (n13) at (2.4, -6)  {$x_{F_1}^2x_{F_2}x_E$};
+                    \node (n14) at (4.8, -6) {$x_{F_1}x_{F_2}x_E^2$};
+        
+                    \draw (n5) -- (n10);
+                    \draw (n5) -- (n11);
+                    \draw (n6) -- (n10);
+                    \draw (n6) -- (n12);
+                    \draw (n7) -- (n11);
+                    \draw (n7) -- (n12);
+                    \draw (n7) -- (n13);
+                    \draw (n8) -- (n12);
+                    \draw (n8) -- (n14);
+                    \draw (n9) -- (n13);
+                    \draw (n9) -- (n14);
+                    
+                    \node (n15) at (-2.4, -8)  {$x_{F_1}^2x_{F_2}x_{F_3}$};
+                    \node (n16) at (0, -8)  {$x_{F_1}x_{F_2}^2x_{F_3}$};
+                    \node (n17) at (2.4, -8)  {$x_{F_1}x_{F_2}x_{F_3}^2$};
+        
+                    \draw (n10) -- (n15);
+                    \draw (n11) -- (n15);
+                    \draw (n12) -- (n15);
+                    \draw (n11) -- (n16);
+                    \draw (n13) -- (n16);
+                    \draw (n12) -- (n17);
+                    \draw (n13) -- (n17);
+                    \draw (n14) -- (n17);
+                    
+                    \node (bottom) at (0, -10) {$x_{F_1}x_{F_2}$};
+        
+                    \draw (n15) -- (bottom);
+                    \draw (n16) -- (bottom);
+                    \draw (n17) -- (bottom);
+        \end{tikzpicture} \end{center}
+        \caption{Hasse diagram of the fiber $supp_+^{-1}(F_1, F_2, E)$.}
+        \label{fig:suppfiber1}
+        \end{figure}
+        
+        
+        \begin{figure}[h!]
+        \begin{center} \begin{tikzpicture}
+            \node (top) at (0,0) {$x_{F_1}^2x_{F_2}^3x_E^2$};
+                    
+            \node (n1) at (-2.4, -2)  {$x_{F_1}^2x_{F_2}^3x_E$};
+                    \node (n2) at (0, -2)  {$x_{F_1}x_{F_2}^3x_E^2$};
+                    \node (n3) at (2.4, -2)  {$x_{F_1}^2x_{F_2}^2x_E^2$};
+        
+                    \draw (top) -- (n2);
+                    
+                    \node (n5) at (-4.8, -4)  {$x_{F_1}^2x_{F_2}^3$};
+                    \node (n6) at (-2.4, -4)  {$x_{F_1}x_{F_2}^3x_E$};
+                    \node (n7) at (0, -4)  {$x_{F_1}^2x_{F_2}^2x_E$};
+                    \node (n8) at (2.4, -4)  {$x_{F_1}x_{F_2}^2x_E^2$};
+                    \node (n9) at (4.8, -4) {$x_{F_1}^2x_{F_2}x_E^2$};
+        
+                    \draw (n1) -- (n6);
+                    \draw (n2) -- (n8);
+                    \draw (n3) -- (n9);
+                                
+                    \node (n10) at (-4.8, -6)  {$x_{F_1}x_{F_2}^3$};
+                    \node (n11) at (-2.4, -6)  {$x_{F_1}^2x_{F_2}^2$};
+                    \node (n12) at (0, -6)  {$x_{F_1}x_{F_2}^2x_E$};
+                    \node (n13) at (2.4, -6)  {$x_{F_1}^2x_{F_2}x_E$};
+                    \node (n14) at (4.8, -6) {$x_{F_1}x_{F_2}x_E^2$};
+        
+                    \draw (n5) -- (n10);
+                    \draw (n6) -- (n12);
+                    \draw (n7) -- (n11);
+                    \draw (n8) -- (n14);
+                    \draw (n9) -- (n13);
+                    
+                    \node (n15) at (-2.4, -8)  {$x_{F_1}^2x_{F_2}x_{F_3}$};
+                    \node (n16) at (0, -8)  {$x_{F_1}x_{F_2}^2x_{F_3}$};
+                    \node (n17) at (2.4, -8)  {$x_{F_1}x_{F_2}x_{F_3}^2$};
+        
+                    \draw (n12) -- (n15);
+                    \draw (n13) -- (n16);
+                    \draw (n14) -- (n17);
+                    
+                    \node (bottom) at (0, -10) {$x_{F_1}x_{F_2}$};
+        
+                    \draw (n17) -- (bottom);
+        \end{tikzpicture} \end{center}
+        \caption{A possible symmetric chain decomposition for $supp_+^{-1}(F_1, F_2, E)$.}
+        \label{fig:symmchainsupp}
+        \end{figure}
+    \end{ex}    
+
+    Since $\lambda$ send an element of the chain in the next element of the same chain, we can apply it for all the length of the chain and not only for element in $FY^k$ with $k < \frac{r}{2}$. 
+
+    Extend now the map $\lambda$, on a chain $\gamma$, in this way
+
+    \begin{center}
+        $\lambda(x_k) = 
+        \begin{cases}
+             x_{k+1}, \text{ if $x_{k+1} \in \gamma$}\\
+            0, \hspace{0.6cm} \text{ if $x_{k+1} \not \in \gamma$ }
+        \end{cases}$
+    \end{center}
+
+    and we define
+    \[ Ker(\lambda) := \{ x \in FY \mid \lambda(x) = 0 \}. \]
+
+    \begin{notat*}
+        We denote $\lambda^k = \lambda \circ \lambda \circ \dots \circ \lambda$, for $k$ times. 
+    \end{notat*}
+    
+    \begin{defn}
+        Consider $x \in FY^k$, we call $x$ a primitive element if
+        \[ x \in P^k:=Ker(\lambda^{r-2k+1} : FY ^k \longrightarrow FY^{r-k+1})\]
+    \end{defn}
+
+    \subsection{Characterization of primitive elements}
+    Consider a symmetric chain $\gamma$ in $FY$. We depict in figure the action of $\lambda^{r-2k+1}$.
+    
+    \begin{center} \begin{tikzpicture}[baseline=0cm,mymatrixenv]
+        \matrix [mymatrix,text width=0.6em,align=center] (m) {
+            \deg & \ & & \deg & \ & \\
+            
+             &  & \color{blue} \lambda &  &  &  \\
+             
+            r-k & \bullet & & r-k+1 & \bullet & & \\
+
+            & \mid & & & \mid & \color{blue} \lambda &\\
+                        
+            r-k-1 & \bullet & & r-k & \bullet & &\\
+
+            & \mid & & &  \mid & &\\
+                        
+            r-k-2 & \bullet & & r-k-1 & \bullet & &\\
+
+            & \mid & & & \mid & &\\
+            
+            & \vdots & \color{red}\lambda^{r-2k}  &  & \vdots & \color{red} \lambda^{r-2k}&\\
+
+            & \mid & & & \mid & &\\
+
+            k+2 & \bullet & &  k +1 & \bullet &\\
+
+            & \mid & & & \mid & &\\
+            
+            k+1 & \bullet & & k & \bullet & &\\
+
+            & \mid & & & \mid & &\\
+                        
+            k & \bullet & & k-1 & \bullet & &\\};
+                    
+            \pgfmathsetmacro{\offset}{0.5mm}
+                \draw [thick, red, rounded corners=50mm] (m-15-2.east) -- (m-9-3.east) -- (m-3-2.east);
+                \draw [thick, blue, rounded corners=15mm] (m-3-2.east) -- ([xshift=-1cm]m-2-3.east) -- (m-1-2.east);
+
+                \draw [thick, red, rounded corners=40mm] (m-13-5.east) -- (m-9-6.east) -- (m-5-5.east);
+                \draw [thick, blue, rounded corners=15mm] (m-5-5.east) -- ([xshift=-1cm]m-4-6.east) -- (m-3-5.east);
+    \end{tikzpicture} \end{center}
+
+    It's simple to see that the primitive element are the elements that are first in a chain.
+    \begin{thm}[Characterization of primitive elements] 
+        Let $x \in FY^k$, then        
+        \begin{center}$\begin{matrix}
+            x \in P^k & \iff & \text{x is the first element of a symmetric chain}.
+        \end{matrix}$\end{center}
+    \end{thm}
+
+    \begin{proof}
+        Let $x \in FY^k$, and suppose $x \in \gamma$ for a certain symmetric chain $\gamma$.
+        If $x$ is the first element of $\gamma$, then $\lambda^{r-2k+1}(x)$ has degree $r-k+1$.
+        But since $\min(\gamma) = k$, then $\max(\gamma) = r-k$, so $\lambda^{r-2k+1}(x) \not \in \gamma$, therefore $x \in P^k$.
+        Suppose now that $x$ is not the first element of the chain $\gamma$, suppose that $\min(\gamma) = k-\epsilon$ and $\max(\gamma) = r - k + \epsilon$. In this case we have that 
+        \[ \deg(\lambda^{r-2k+1}(x)) = r - k  + 1 < r - k + \epsilon + 1\]
+        so $\lambda^{r-2k+1}(x) \in \gamma$. Therefore
+        \[ x \not \in P^k. \]
+    \end{proof}
+
+    Therefore to find a basis for $P^k$ we only need to find all the elements that are the first element of some symmetric chain in the decomposition.
+
+    \subsection{A basis for primitive elements}
+
+    Let's start with the most simple case: $N^+=\{F_1, E\}$. Then the chains are obtained by the procedure exposed in previous sections.
+    By the previous theorem the primitive elements are all the first elements of the chains.
+    The number of this elements is equal to the number of chains in the decomposition, and these elements are the first $N$ elements of the first column, where $N$ is the number of chains.
+    But $N= \min \{m_{N ^+}(F_1) -1, m_{N^+}(E)\}$, so the nested sets of the type $N^+=\{F_1, E\}$, contribute to the basis with the elements
+    \[ \{ x_{F_1}x_E^k \mid 0 \le k \le \min \{m_{N ^+}(F_1) -1, m_{N^+}(E)\} \}. \]
     
 	%STAMPA DELLA BIBLIOGRAFIA
 	\printbibliography[title=References and Bibliography]
